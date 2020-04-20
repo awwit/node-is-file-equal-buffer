@@ -50,6 +50,9 @@ typings/
 # Optional npm cache directory
 .npm
 
+# npm auth file
+.npmrc
+
 # Optional eslint cache
 .eslintcache
 
