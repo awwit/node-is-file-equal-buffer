@@ -5,6 +5,13 @@
   "license": "MIT",
   "repository": "git@github.com:awwit/node-is-file-equal-buffer.git",
   "author": "Ignat Awwit <ignatius.awwit@gmail.com>",
+  "keywords": [
+    "file",
+    "comparison",
+    "compare",
+    "equal",
+    "buffer"
+  ],
   "main": "dist/index.js",
   "files": [
     "dist/**/*.js",
