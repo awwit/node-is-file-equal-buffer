@@ -1,0 +1,39 @@
+{
+  "name": "is-file-equal-buffer",
+  "description": "Compare file contents with buffer",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": "git@github.com:awwit/node-is-file-equal-buffer.git",
+  "author": "Ignat Awwit <ignatius.awwit@gmail.com>",
+  "main": "dist/index.js",
+  "files": [
+    "dist/**/*.js",
+    "dist/index.d.ts"
+  ],
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "scripts": {
+    "prepack": "npx rimraf ./dist && yarn compile",
+    "pub": "yarn publish",
+    "compile": "npx tsc",
+    "tc": "npx tsc --noEmit",
+    "test": "echo \"Please write tests!\""
+  },
+  "devDependencies": {
+    "@types/node": "8.10.60",
+    "@typescript-eslint/eslint-plugin": "2.27.0",
+    "@typescript-eslint/parser": "2.27.0",
+    "eslint": "6.8.0",
+    "eslint-config-prettier": "6.10.1",
+    "eslint-config-standard": "14.1.1",
+    "eslint-plugin-import": "2.20.2",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-prettier": "3.1.2",
+    "eslint-plugin-promise": "4.2.1",
+    "eslint-plugin-standard": "4.0.1",
+    "prettier": "2.0.4",
+    "rimraf": "3.0.2",
+    "typescript": "3.8.3"
+  }
+}
