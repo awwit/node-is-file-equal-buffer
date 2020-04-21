@@ -3,7 +3,13 @@
   "description": "Compare file contents with buffer",
   "version": "1.0.1",
   "license": "MIT",
-  "repository": "git@github.com:awwit/node-is-file-equal-buffer.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/awwit/node-is-file-equal-buffer"
+  },
+  "bugs": {
+    "url": "https://github.com/awwit/node-is-file-equal-buffer/issues"
+  },
   "author": "Ignat Awwit <ignatius.awwit@gmail.com>",
   "keywords": [
     "file",
