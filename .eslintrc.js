@@ -1,14 +1,18 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: ['standard', 'prettier'],
   extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:import/typescript',
+    'plugin:node/recommended',
+    'plugin:promise/recommended',
     'standard',
     // Prettier always last
     'prettier',
-    'prettier/standard',
     'plugin:prettier/recommended',
     'prettier/@typescript-eslint',
+    'prettier/standard',
   ],
   parserOptions: {
     ecmaVersion: 2017,
@@ -16,6 +20,11 @@ module.exports = {
   },
   env: {
     node: true,
+    jest: true,
   },
-  rules: {},
+  rules: {
+    'node/no-missing-import': 'off',
+    'node/no-unsupported-features/es-syntax': 'off',
+    'no-empty': ['error', { 'allowEmptyCatch': true }],
+  },
 }
