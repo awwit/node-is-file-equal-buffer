@@ -107,7 +107,7 @@ describe('isFileEqualBuffer', () => {
 
     let byte = buffer[0]
 
-    buffer[0] ^= byte
+    buffer[0] = ~byte
 
     isEqual = await isFileEqualBuffer(filePath, buffer)
 
@@ -119,7 +119,7 @@ describe('isFileEqualBuffer', () => {
 
     byte = buffer[buffer.length - 1]
 
-    buffer[buffer.length - 1] ^= byte
+    buffer[buffer.length - 1] = ~byte
 
     isEqual = await isFileEqualBuffer(filePath, buffer)
 
@@ -130,7 +130,7 @@ describe('isFileEqualBuffer', () => {
     buffer = Buffer.from(origin)
 
     for (let i = 0; i < buffer.length; ++i) {
-      buffer[i] ^= buffer[i]
+      buffer[i] = ~buffer[i]
     }
 
     isEqual = await isFileEqualBuffer(filePath, buffer)
