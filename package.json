@@ -1,7 +1,7 @@
 {
   "name": "is-file-equal-buffer",
   "description": "Compare file contents with buffer",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "license": "MIT",
   "repository": {
     "type": "git",
