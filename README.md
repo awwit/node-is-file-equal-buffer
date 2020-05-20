@@ -6,7 +6,7 @@ The function runs asynchronously and returns a `Promise` with resolved `boolean`
 
 `isFileEqualBuffer(filePath, buffer[, options])`
 
-- `filePath` [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type) path to the file you want to compare.
+- `filePath` [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures#String_type) | [Buffer](https://nodejs.org/api/buffer.html#buffer_class_buffer) | [URL](https://nodejs.org/api/url.html#url_the_whatwg_url_api) path to the file you want to compare.
 - `buffer` [Buffer](https://nodejs.org/api/buffer.html#buffer_class_buffer) buffer with which to compare file contents.
 - `options` [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)
   - `fs` [FileSystem](https://nodejs.org/api/fs.html) file system module (`fs`). __Default:__ `require('fs')`.

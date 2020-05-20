@@ -1,6 +1,9 @@
-type FileSystemType = typeof import('fs')
+import { PathLike } from 'fs'
 
-function getFileSize(filePath: string, fs: FileSystemType): Promise<number> {
+type FsType = typeof import('fs')
+type PartialFsType = Pick<FsType, 'stat' | 'createReadStream'>
+
+function getFileSize(filePath: PathLike, fs: PartialFsType): Promise<number> {
   return new Promise(function executor(resolve, reject) {
     fs.stat(filePath, function stat(err, stats) {
       if (err !== null) {
@@ -17,11 +20,11 @@ function getFileSize(filePath: string, fs: FileSystemType): Promise<number> {
 }
 
 interface FileEqualBufferOptions {
-  fs?: FileSystemType
+  fs?: PartialFsType
 }
 
 export function isFileEqualBuffer(
-  filePath: string,
+  filePath: PathLike,
   buffer: Buffer,
   { fs = require('fs') }: FileEqualBufferOptions = {}
 ): Promise<boolean> {
@@ -36,7 +39,7 @@ export function isFileEqualBuffer(
       let offset = 0
       let isEqual = true
 
-      stream.on('data', function read(data) {
+      stream.on('data', function read(data: Buffer | string) {
         if (!Buffer.isBuffer(data)) {
           data = Buffer.from(data)
         }

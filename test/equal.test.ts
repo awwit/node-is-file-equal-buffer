@@ -7,7 +7,9 @@ import { v4 as uuidv4 } from 'uuid'
 
 import { isFileEqualBuffer } from '../src/index'
 
-function deleteFile(filePath: string): Promise<void> {
+type FileSystemType = typeof import('fs')
+
+function deleteFile(filePath: fs.PathLike): Promise<void> {
   return new Promise(function executor(resolve, reject) {
     fs.unlink(filePath, function callback(err) {
       if (err !== null && err.code !== 'ENOENT') {
@@ -19,7 +21,11 @@ function deleteFile(filePath: string): Promise<void> {
   })
 }
 
-function writeToFile(filePath: string, length: number): Promise<Buffer> {
+function writeToFile(
+  filePath: fs.PathLike,
+  length: number,
+  fs: FileSystemType = require('fs')
+): Promise<Buffer> {
   return new Promise(function executor(resolve, reject) {
     const data = crypto.randomBytes(length)
 
@@ -92,12 +98,15 @@ describe('isFileEqualBuffer', () => {
 
   // For testing files with different sizes
   async function testFileWithSize(
-    filePath: string,
-    length: number
+    filePath: fs.PathLike,
+    length: number,
+    fs?: FileSystemType
   ): Promise<void> {
-    const origin = await writeToFile(filePath, length)
+    const origin = await writeToFile(filePath, length, fs)
 
-    let isEqual = await isFileEqualBuffer(filePath, origin)
+    const options = fs !== undefined ? { fs } : undefined
+
+    let isEqual = await isFileEqualBuffer(filePath, origin, options)
 
     expect(isEqual).toBeTruthy()
 
@@ -109,7 +118,7 @@ describe('isFileEqualBuffer', () => {
 
     buffer[0] = ~byte
 
-    isEqual = await isFileEqualBuffer(filePath, buffer)
+    isEqual = await isFileEqualBuffer(filePath, buffer, options)
 
     expect(isEqual).toBeFalsy()
 
@@ -121,7 +130,7 @@ describe('isFileEqualBuffer', () => {
 
     buffer[buffer.length - 1] = ~byte
 
-    isEqual = await isFileEqualBuffer(filePath, buffer)
+    isEqual = await isFileEqualBuffer(filePath, buffer, options)
 
     expect(isEqual).toBeFalsy()
 
@@ -133,7 +142,7 @@ describe('isFileEqualBuffer', () => {
       buffer[i] = ~buffer[i]
     }
 
-    isEqual = await isFileEqualBuffer(filePath, buffer)
+    isEqual = await isFileEqualBuffer(filePath, buffer, options)
 
     expect(isEqual).toBeFalsy()
 
@@ -141,7 +150,7 @@ describe('isFileEqualBuffer', () => {
 
     buffer = origin.slice(0, origin.length - 1)
 
-    isEqual = await isFileEqualBuffer(filePath, buffer)
+    isEqual = await isFileEqualBuffer(filePath, buffer, options)
 
     expect(isEqual).toBeFalsy()
 
@@ -149,7 +158,7 @@ describe('isFileEqualBuffer', () => {
 
     buffer = Buffer.concat([origin, origin])
 
-    isEqual = await isFileEqualBuffer(filePath, buffer)
+    isEqual = await isFileEqualBuffer(filePath, buffer, options)
 
     expect(isEqual).toBeFalsy()
   }
@@ -171,5 +180,12 @@ describe('isFileEqualBuffer', () => {
     const filePath = tempFileName()
 
     await testFileWithSize(filePath, 1 << 24) // ~16Mb
+  })
+
+  test('test options.fs', async () => {
+    const filePath = tempFileName()
+
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    await testFileWithSize(filePath, 1 << 24, require('graceful-fs')) // ~16Mb
   })
 })
