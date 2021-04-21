@@ -10,9 +10,6 @@ module.exports = {
     'standard',
     // Prettier always last
     'prettier',
-    'plugin:prettier/recommended',
-    'prettier/@typescript-eslint',
-    'prettier/standard',
   ],
   parserOptions: {
     ecmaVersion: 2017,
@@ -26,5 +23,6 @@ module.exports = {
     'node/no-missing-import': 'off',
     'node/no-unsupported-features/es-syntax': 'off',
     'no-empty': ['error', { allowEmptyCatch: true }],
+    'no-undef': 'off',
   },
 }
