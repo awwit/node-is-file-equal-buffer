@@ -9,7 +9,7 @@ module.exports = {
     'plugin:promise/recommended',
     'standard',
     // Prettier always last
-    'prettier',
+    'plugin:prettier/recommended',
   ],
   parserOptions: {
     ecmaVersion: 2017,
