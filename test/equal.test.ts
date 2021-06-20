@@ -2,8 +2,6 @@ import * as os from 'os'
 import * as fs from 'fs'
 import * as path from 'path'
 import * as crypto from 'crypto'
-// eslint-disable-next-line node/no-extraneous-import
-import { v4 as uuidv4 } from 'uuid'
 
 import { isFileEqualBuffer } from '../src/index'
 
@@ -35,10 +33,14 @@ function writeToFile(
   })
 }
 
+function getRandomFileName(): string {
+  return crypto.randomBytes(16).toString('hex')
+}
+
 const files: Set<string> = new Set()
 
 function tempFileName(register = true): string {
-  const name = path.join(os.tmpdir(), uuidv4())
+  const name = path.join(os.tmpdir(), getRandomFileName())
 
   if (register) {
     files.add(name)
